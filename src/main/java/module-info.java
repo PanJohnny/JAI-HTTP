@@ -1,3 +1,3 @@
-module HttpUtils {
+module JAIHTTP {
     requires org.jetbrains.annotations;
 }

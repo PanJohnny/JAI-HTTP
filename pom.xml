@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.panjohnny.http</groupId>
-    <artifactId>HttpUtils</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>JAI-HTTP</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
@@ -29,4 +29,11 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/PanJohnny/JAI-HTTP</url>
+        </repository>
+    </distributionManagement>
 </project>
