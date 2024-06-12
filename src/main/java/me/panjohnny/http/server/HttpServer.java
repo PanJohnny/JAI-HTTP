@@ -22,7 +22,13 @@ public abstract sealed class HttpServer permits HttpServerImpl {
     public abstract void start() throws IOException;
     public abstract void stop() throws InterruptedException;
 
+    public abstract boolean isRunning();
+
     public abstract Router getRouter();
+
+    public InetSocketAddress getAddress() {
+        return address;
+    }
 
     public static HttpServer create(InetSocketAddress address) {
         return new HttpServerImpl(address);

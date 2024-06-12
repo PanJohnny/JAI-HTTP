@@ -45,26 +45,29 @@ public final class HttpServerImpl extends HttpServer {
     public void stop() throws InterruptedException {
         running = false;
         mainServerThread.join();
-        threadPool.shutdown();
+
+        threadPool.shutdownNow();
+
+        logger.log(System.Logger.Level.INFO, "Server listening on {0} successfully stopped", address);
     }
 
     private void acceptConnections() {
         while (running) {
-            try {
-                Socket socket = serverSocket.accept();
-                logger.log(System.Logger.Level.DEBUG, "Accepted connection from {0}", socket.getRemoteSocketAddress());
+            threadPool.submit(() -> {
+                try {
+                    Socket socket = serverSocket.accept();
+                    logger.log(System.Logger.Level.DEBUG, "Accepted connection from {0}", socket.getRemoteSocketAddress());
 
-                threadPool.submit(() -> {
-                    try {
-                        new HttpConnectionHandlerImpl(socket, getRouter()).handle();
-                    } catch (IOException e) {
-                        logger.log(System.Logger.Level.ERROR, "Error while handling connection", e);
-                    }
-                });
-            } catch (IOException e) {
-                logger.log(System.Logger.Level.ERROR, "Error while accepting connection", e);
-            }
+                    new HttpConnectionHandlerImpl(socket, getRouter()).handle();
+                } catch (IOException e) {
+                    if (!running)
+                        return;
+
+                    logger.log(System.Logger.Level.ERROR, "Error while handling connection", e);
+                }
+            });
         }
+
         try {
             serverSocket.close();
         } catch (IOException e) {
@@ -76,5 +79,10 @@ public final class HttpServerImpl extends HttpServer {
     @Override
     public Router getRouter() {
         return router;
+    }
+
+    @Override
+    public boolean isRunning() {
+        return running;
     }
 }

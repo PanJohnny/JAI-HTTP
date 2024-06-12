@@ -5,7 +5,7 @@ and an utility for easily fetching remote resources.
 
 It currently supports HTTP 1.0 and 1.1.
 
-Supports loading from files, to test it clone the repository and run `mvn clean install`. Test code is located in the Main class (for now).
+Supports loading from files, to test it clone the repository and run `mvn clean install`. Test using JUnit 5.
 
 ## HttpServer
 

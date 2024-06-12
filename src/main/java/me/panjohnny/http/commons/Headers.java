@@ -42,4 +42,23 @@ public final class Headers {
     public void copyAll(Headers headers) {
         this.headers.putAll(headers.map());
     }
+
+    public void copy(String key, Headers headers) {
+        this.headers.put(key, headers.get(key));
+    }
+
+    public HeadersPrefab prefab() {
+        return new HeadersPrefab(this);
+    }
+
+    public static class HeadersPrefab {
+        private final Headers headers;
+        private HeadersPrefab(Headers headers) {
+            this.headers = headers;
+        }
+
+        public void apply(Headers headers) {
+            headers.copyAll(this.headers);
+        }
+    }
 }
