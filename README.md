@@ -1,4 +1,4 @@
-# YAI HTTP
+# JAI HTTP
 [![Maven Package](https://github.com/PanJohnny/JAI-HTTP/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/PanJohnny/JAI-HTTP/actions/workflows/maven-publish.yml)
 
 YAI HTTP or Yet Another Implementation of HTTP is a simple library coded in Java, that consists of a server with routing
